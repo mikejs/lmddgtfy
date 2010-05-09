@@ -16,26 +16,42 @@ function cursorToInputField() {
             $("#cursor").animate({
                 top: px(input.position().top + 35)
             }, 500, 'swing', function() {
-                var str = window.location.search.substring(3).replace(/\+/g, " ");
+                var str = $("#query").attr("value");
                 type(str, 1); 
             });
         }, 100);
     })
 }
   
-function cursorToSubmit() {
-    var submit = $("#icon1");
+function cursorToIcon() {
+    var type = $("#search_type").attr("value");
+
+    var icon;
+    if (type === "d") {
+        icon = $("#icon2");
+    } else if (type === "s") {
+        icon = $("#icon3");
+    } else if (type === "i") {
+        icon = $("#icon4");
+    } else {
+        icon = $("#icon1");
+    }
+
+    setTimeout(function() {
+            icon.mouseover();
+        }, 500);
     $("#cursor").animate({
-        top: px(submit.position().top + 15),
-        left: px(submit.position().left + 15)
-    }, 1500, 'swing', function() {
-      submit.focus();
+        top: px(icon.position().top + 15),
+        left: px(icon.position().left + 20)
+    }, 1000, 'swing', function() {
       setTimeout(go, 300);
     });
 }
 
 function go() {
-    window.location = "http://duckduckgo.com/?q=" + window.location.search.substring(3);
+    var query = escape($("#query").attr("value"));
+    var type = escape($("#search_type").attr("value"));
+    window.location = "http://duckduckgo.com/?q=" + query + "&v=" + type;
 }
   
 function type(str, index) {
@@ -45,7 +61,7 @@ function type(str, index) {
         type(str, index + 1);
       }, 100);
     } else {
-      setTimeout(cursorToSubmit, 100);
+      setTimeout(cursorToIcon, 100);
     }
   }
   

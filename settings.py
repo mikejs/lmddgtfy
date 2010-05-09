@@ -1,3 +1,5 @@
+import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -76,6 +78,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'lmddgtfy.search',
 )
+
+STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 
 try:
     from local_settings import *
